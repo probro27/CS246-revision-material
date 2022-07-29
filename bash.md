@@ -102,4 +102,35 @@ if we want to redirect the output from standard output to standard error
 - echo "ERROR" 1>&2
 ```
 
+- To redirect the output from standard output to standard error
+```bash
+	./printer &> out # prints both stdout and stderr to out
+	./printer > out 2>&1 
+	./printer > out 1>&2
+```
+- The order of redirection matters here. 
 
+- Redirect to /dev/null?
+	When we do not care about the actual output of the program but want it to perform some operations.
+
+
+## Pipelining
+
+You can use the out output of one program to use as an input to another program.
+
+## Embedded Commands
+
+- We can use a subshell to embed commands as command line arguments to scripts.
+- `egrep $(cat file) myfile.txt` could allow s to run `egrep` with the contents of the file being the regular expression.
+
+## Quotes
+
+### Double Quotes
+- Subsresses globbing patterns. 
+- Allows variable substitution and embedded commands. 
+
+### Single Quotes
+
+- No substitution or expansion will take place with anything inside of single quotes
+- Supprusses variable substitution and embedded commands
+- `egrep '$(cat word.txt)'` will print $(cat word.txt)
