@@ -1,4 +1,4 @@
-# RAII
+# RAII and Constructors revised
 
 - Resource Acquisition is initialization
 
@@ -157,3 +157,54 @@ class Vec {
 };
 ```
 
+## Closer to the Rule-Of-Zero
+
+```c++
+
+class Vec {
+    std::unique_ptr<int[]> uptr_;
+    int size_;
+
+    Vec(const Vec& rhs) {
+        uptr_ = std::make_unique<int[]>(rhs.size_);
+        size_ = rhs.size_;
+        std::copy(rhs.ptr_, rhs.ptr_ + size_, ptr_); // how does this even work??
+    }
+
+    Vec(Vec &&rhs) noexcept = default;
+
+    ~Vec() = default;
+
+    // rest are the same
+};
+```
+
+## True Rule-Of-Zero
+
+```c++
+class Vec {
+    std::vector<int> vec_;
+
+    Vec(const Vec &rhs) = default;
+    Vec(Vec &&rhs) noexcept = default;
+    Vec &operator=(const Vec &rhs) = default;
+    Vec &operator=(Vec &&rhs) = default;
+    ~Vec() = default;
+
+    void swap(Vec &rhs) noexcept {
+        vec_.swap(rhs.swap_);
+    }
+
+    friend void swap(Vec &a, Vec &b) noexcept {
+        a.swap(b);
+    }
+}
+```
+
+`shared_ptr` manages the reference count
+
+- Destructor decrements the reference count (frees if it is 0)
+- Copy constructor increments the reference count
+- Move Constructor transfers ownership of the resource (leaves the reference count same)
+- Copy assignment operator Decrements the old reference count, increments the new count
+- Move assignment operator Decrements the old reference count, then disengages the right hand side.
