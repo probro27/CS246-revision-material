@@ -83,4 +83,77 @@ NaiveVector &operator=(const NaiveVector &other) {
 
 - The slogan is about initialization, but meaning is really about **cleanup**.
 
+## Defaulted Special Member functions
+```C++
+class Book {
+    // ...
+    public:
+        Book(const Book&) = default;
+        Book &operator=(const Book &) = default;
+        ~Book() = default;
+};
+```
+
+# The Rule of Zero
+
+- If your class does not directly manage any resource but merely uses library components such as vectors and strings, then write no special member functions.
+    - Let the compiler implicitly generate a defaulted constructor
+    - Let the compiler generate the copy constructor
+    - Let the compiler generate the copy assignment operator
+    - (But your own swap might improve performance)
+- Known as **Rule of Zero**.
+
+Two kinds of well-designed C++ classes-
+
+- **Business-logic classes** that do not manually manage any resources, and follow the Rule of Zero
+    - They delegate the job of resource management to data memberes of types such as `std::string`
+
+- **Resource-management classes** (small, single-purpose) that follow the Rule of Three
+    - Acquire the resource in each constructor; free the resource in the destructor; copy and swap in the assignment operator.
+
+### Rule of Five
+
+- If you need to write any one of the constructor, move, copy, delete, you write all of them.
+- Includes -
+	- Constructor
+	- Copy Constructor
+	- Move Constructor
+	- Copy Assignment Operator
+	- Move Assignment Operator
+
+**No Longer NaiveVector**
+
+```c++
+class Vec {
+    Vec(const Vec &rhs) {
+        ptr_ = new int[rhs.size_];
+        size_ = rhs.size_;
+        std::copy(rhs.ptr_, rhs.ptr_ + size, ptr_);
+    }
+
+    Vec(Vec &&rhs) noexcept {
+        ptr_ = std::exchange(rhs.ptr_, nullptr);
+        size_ = std::exchange(rhs.size_, 0);
+    }
+
+    ~Vec() {
+        delete[] ptr;
+    }
+
+    Vec &operator=(Vec copy) noexcept {
+        copy.swap(*this);
+        return *this;
+    }
+
+    Vec &swap(Vec &rhs) noexcept {
+        using std::swap;
+        swap(ptr_, rhs.ptr_);
+        swap(size_, rhs.size_);
+    }
+
+    friend void swap(Vec &a, Vec &b) noexcept {
+        a.swap(b);
+    }
+};
+```
 
