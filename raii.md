@@ -208,3 +208,4 @@ class Vec {
 - Move Constructor transfers ownership of the resource (leaves the reference count same)
 - Copy assignment operator Decrements the old reference count, increments the new count
 - Move assignment operator Decrements the old reference count, then disengages the right hand side.
+
