@@ -3,6 +3,8 @@
 
 using namespace std;
 
+// template class Matrix<int>;
+
 template <typename T>
 Matrix<T>::Matrix(): _numRows{0}, _numCols{0}, _matrix{nullptr} {}
 
@@ -75,6 +77,12 @@ void Matrix<T>::resize(int numRows, int numCols) {
 }
 
 template <typename T>
+void Matrix<T>::set(int row, int col, T value) {
+    _matrix[row][col] = value;
+}
+
+
+template <typename T>
 Matrix<T>::~Matrix() {
     for(int i = 0; i < _numRows; ++i){
         delete [] _matrix[i];
@@ -82,4 +90,47 @@ Matrix<T>::~Matrix() {
     _numRows = 0;
     _numCols = 0;
     _matrix = nullptr;
+}
+
+template <typename T>
+Matrix<T>::Iterator::Iterator(int numRows, int numCols, int **matrix): _curRow{0}, _curCol{0}, _numRow{numRows}, _numCol{numCols}, _matrix{matrix} {}
+
+template <typename T>
+typename Matrix<T>::Iterator &Matrix<T>::Iterator::operator++() {
+    _curCol++;
+    if(_curCol == _numCol) {
+        if(_curRow != _numRow) {
+            _curRow++;
+            _curCol = 0;
+        }
+        else {
+            _matrix = nullptr;
+        }
+    }
+    return *this;
+}
+
+template <typename T>
+T &Matrix<T>::Iterator::operator*() {
+    return _matrix[_curRow][_curCol];
+}
+
+template <typename T>
+bool &Matrix<T>::Iterator::operator==(const Iterator &other) {
+    return _matrix == other._matrix;
+}
+
+template <typename T>
+bool &Matrix<T>::Iterator::operator!=(const Iterator &other) {
+    return !(*this == other);
+}
+
+template <typename T>
+typename Matrix<T>::Iterator Matrix<T>::begin() {
+    return Iterator{_numRows, _numCols, _matrix};
+}
+
+template <typename T>
+typename Matrix<T>::Iterator Matrix<T>::end() {
+    return Iterator{_numRows, _numCols, nullptr};
 }

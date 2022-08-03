@@ -16,5 +16,11 @@ int main() {
 
     cout << m + 3 << endl;
 
+    Matrix<int> n = m + 3;
+
+    for(auto it = m.begin(); it != m.end(); ++it) {
+        cout << *it << endl;
+    }
+
     return 0;
 }
