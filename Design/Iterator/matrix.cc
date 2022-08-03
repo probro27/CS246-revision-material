@@ -116,12 +116,12 @@ T &Matrix<T>::Iterator::operator*() {
 }
 
 template <typename T>
-bool &Matrix<T>::Iterator::operator==(const Iterator &other) {
+bool Matrix<T>::Iterator::operator==(const Iterator &other) {
     return _matrix == other._matrix;
 }
 
 template <typename T>
-bool &Matrix<T>::Iterator::operator!=(const Iterator &other) {
+bool Matrix<T>::Iterator::operator!=(const Iterator &other) {
     return !(*this == other);
 }
 

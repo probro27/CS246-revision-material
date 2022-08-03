@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -g -Wall -Werror=vla -MMD 
-OBJECTS = main.o matrix.o
+OBJECTS = main.o 
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = iterate
 
