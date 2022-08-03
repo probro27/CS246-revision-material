@@ -1,3 +1,6 @@
+#ifndef _STATION_H
+#define _STATION_H
+
 #include "subject.h"
 #include "state.h"
 #include "info.h"
@@ -10,3 +13,5 @@ class Station: public Subject<State, Info> {
     public:
         void changeData();
 };
+
+#endif

@@ -1,20 +1,21 @@
 #include "observer.h"
+#include "station.h"
 #include <iostream>
 
-class Display: public Observer {
+class WeatherDisplay: public Observer {
     double humidity;
     double temperature;
-
+    Station *s;
     public:
-        Display(Subject<State, Info>* c): Observer{c} {}
+        WeatherDisplay(Station *s): s{s} {}
 
         void notify() {
-            Info of = c->getInfo();
+            Info of = s->getInfo();
             humidity = of.humidity;
             temperature = of.temperature;
         }
 
-        friend std::ostream &operator<<(std::ostream &out, Display *td) {
+        friend std::ostream &operator<<(std::ostream &out, WeatherDisplay *td) {
             out << "Humidity: " << td->humidity << "\n";
             out << "Temperatur: " << td->temperature << "\n";
             return out;

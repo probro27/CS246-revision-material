@@ -5,9 +5,6 @@
 #include <vector>
 #include "observer.h"
 
-class State;
-class Info;
-
 template<typename StateType, typename InfoType>
 class Subject {
     std::vector<Observer *> ob;
@@ -19,10 +16,14 @@ class Subject {
         }
     public:
         StateType getState() const {
-            return StateType;
+            return state;
         }
         InfoType getInfo() const {
             return info;
+        }
+
+        void setInfo(Info in) {
+            info = in;
         }
         void attach(Observer *observer) {
             ob.emplace_back(observer);
@@ -35,7 +36,7 @@ class Subject {
         }
         void notifyObservers() {
             for(auto &observer: ob) {
-                ob->notify();
+                observer->notify();
             }
         }
 };
