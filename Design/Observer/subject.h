@@ -39,6 +39,8 @@ class Subject {
                 observer->notify();
             }
         }
+
+        virtual ~Subject() {}
 };
 
 #endif

@@ -12,4 +12,6 @@ int main() {
     s->changeData();
     cout << d;
     return 0;
+    delete d;
+    delete s;
 }
