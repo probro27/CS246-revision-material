@@ -48,7 +48,9 @@ public:
 
     ~Matrix();
 
-    friend std::ostream &operator<<(std::ostream &out, Matrix m);
+    template <typename M>
+    friend std::ostream &operator<<(std::ostream &out, Matrix<M> m);
+
     friend Iterator;
 };
 
@@ -150,7 +152,7 @@ template <typename T>
 typename Matrix<T>::Iterator &Matrix<T>::Iterator::operator++() {
     _curCol++;
     if(_curCol == _numCol) {
-        if(_curRow != _numRow) {
+        if(_curRow != _numRow - 1) {
             _curRow++;
             _curCol = 0;
         }
@@ -187,9 +189,7 @@ typename Matrix<T>::Iterator Matrix<T>::end() {
 }
 
 std::ostream &operator<<(std::ostream &out, Matrix<int> m) {
-    std::cout << "returning started" << std::endl;
     for(auto it = m.begin(); it != m.end(); ++it) {
-        std::cout << *it << ", ";
         out << *it << ", ";
     }
     out << std::endl;

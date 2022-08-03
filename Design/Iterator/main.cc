@@ -18,8 +18,8 @@ int main() {
 
     Matrix<int> n = m ;
 
-    for(auto it = m.begin(); it != m.end(); ++it) {
-        cout << *it << endl;
+    for(auto &element: m) {
+        cout << element << endl;
     }
 
     return 0;
