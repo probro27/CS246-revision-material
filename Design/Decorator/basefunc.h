@@ -5,5 +5,6 @@ class BaseFunc: public Sequence {
 public:
     BaseFunc(int n);
     void setValue(int n) override;
-    int updatePrint() override;
+    void updatePrint() override;
+    int getValue() const override;
 };

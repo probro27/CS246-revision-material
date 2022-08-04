@@ -3,6 +3,8 @@
 class DivDecorator: public Decorator {
     int val;
 public:
+    DivDecorator(Sequence *sq, int n);
     void setValue(int n) override;
-    int updatePrint() override;
+    void updatePrint() override;
+    int getValue() const override;
 };
