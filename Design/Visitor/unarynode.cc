@@ -6,9 +6,6 @@ using namespace std;
 UnaryTreeNode::UnaryTreeNode(int data, unique_ptr<TreeNode> child): _data{data}, _childNode{std::move(child)} {}
 
 void UnaryTreeNode::accept(TreeVisitor &visitor) {
-    // if(_childNode != nullptr) {
-    //     _childNode->accept(visitor);
-    // }
     visitor.visit(*this);
 }
 

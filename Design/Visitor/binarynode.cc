@@ -6,12 +6,6 @@ using namespace std;
 BinaryTreeNode::BinaryTreeNode(int data, unique_ptr<TreeNode> leftChild, unique_ptr<TreeNode> rightChild): _data{data}, _leftChild{std::move(leftChild)}, _rightChild{std::move(rightChild)} {}
 
 void BinaryTreeNode::accept(TreeVisitor &visitor) {
-    // if(_leftChild != nullptr) {
-    //     _leftChild->accept(visitor);
-    // }
-    // if(_rightChild != nullptr) {
-    //     _rightChild->accept(visitor);
-    // }
     visitor.visit(*this);
 }
 
