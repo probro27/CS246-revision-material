@@ -10,7 +10,7 @@ class UnaryTreeNode : public TreeNode {
 public:
     UnaryTreeNode(int n, std::unique_ptr<TreeNode> childNode);
     void accept(TreeVisitor &visitor) override;
-    std::unique_ptr<TreeNode> &getChild();
+    std::unique_ptr<TreeNode> getChild();
 };
 
 #endif

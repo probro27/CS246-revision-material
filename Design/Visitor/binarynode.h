@@ -11,8 +11,8 @@ class BinaryTreeNode: public TreeNode {
 public:
     BinaryTreeNode(int data, std::unique_ptr<TreeNode> leftChild, std::unique_ptr<TreeNode> rightChild);
     void accept(TreeVisitor &visitor) override;
-    std::unique_ptr<TreeNode> &getLeft();
-    std::unique_ptr<TreeNode> &getRight();
+    std::unique_ptr<TreeNode> getLeft() ;
+    std::unique_ptr<TreeNode> getRight() ;
 };
 
 #endif

@@ -4,6 +4,7 @@
 class TreeVisitor;
 
 class TreeNode {
+public:
     virtual void accept(TreeVisitor &visitor) = 0;
 };
 
