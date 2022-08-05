@@ -4,6 +4,7 @@
         "__bit_reference": "cpp",
         "complex": "cpp",
         "string": "cpp",
-        "iterator": "cpp"
+        "iterator": "cpp",
+        "iostream": "cpp"
     }
 }

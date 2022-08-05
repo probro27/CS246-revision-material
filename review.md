@@ -144,7 +144,7 @@ int main() {
 
 unqiue_ptr<Impl> impl;
 
-impl{std::make_unique<Impl>(*(other.impl))} // *other.impl same as other.impl.get()
+impl{std::make_unique<Impl>(*(other.impl))} // *other.impl not the same as other.impl.get()
 
 ```
 
