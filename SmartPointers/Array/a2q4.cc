@@ -7,7 +7,7 @@ using namespace std;
 struct IntArray {
     int size;
     int capacity;
-    shared_ptr<int*> contents;
+    shared_ptr<int> contents;
 };
 
 IntArray readIntArray() {
@@ -16,20 +16,20 @@ IntArray readIntArray() {
     while(true) {
         if(cin >> element) {
             if(a.capacity == 0){
-                a.contents = make_shared<int*>(new int[5]);
-                *(a.contents)[0] = element;
+                a.contents = make_shared<int>(new int[5]);
+                a.contents[0] = element;
                 a.capacity = 5;
                 a.size = 1;
             } else if (a.capacity == a.size + 1){
                 a.capacity *= 2;
-                shared_ptr<int*> temp = make_unique<int*>(new int[a.capacity]);
+                shared_ptr<int> temp = make_unique<int>(new int[a.capacity]);
                 for(int i = 0; i < a.size; i++) {
-                    *temp[i] = *(a.contents)[i];
+                    temp[i] = a.contents[i];
                 }
-                *temp[a.size] = element;
+                temp[a.size] = element;
                 std::swap(a.contents, temp); // temp should pop off the stack so a.contents should remain without memory leak
             } else {
-                *(a.contents)[a.size] = element;
+                a.contents[a.size] = element;
                 a.size += 1;
             }
         } else {
@@ -46,20 +46,20 @@ void addToIntArray(IntArray& a) {
     while(true) {
         if(cin >> element) {
             if(a.capacity == 0){
-                a.contents = make_shared<int*>(new int[5]);
-                *(a.contents)[0] = element;
+                a.contents = make_shared<int>(new int[5]);
+                a.contents[0] = element;
                 a.capacity = 5;
                 a.size = 1;
             } else if (a.capacity == a.size + 1){
                 a.capacity *= 2;
-                shared_ptr<int*> temp = make_unique<int*>(new int[a.capacity]);
+                shared_ptr<int> temp = make_unique<int>(new int[a.capacity]);
                 for(int i = 0; i < a.size; i++) {
-                    *temp[i] = *(a.contents)[i];
+                    temp[i] = a.contents[i];
                 }
-                *temp[a.size] = element;
+                temp[a.size] = element;
                 std::swap(a.contents, temp); // temp should pop off the stack so a.contents should remain without memory leak
             } else {
-                *(a.contents)[a.size] = element;
+                a.contents[a.size] = element;
                 a.size += 1;
             }
         } else {
@@ -72,7 +72,7 @@ void addToIntArray(IntArray& a) {
 
 void printIntArray(const IntArray& seq) {
     for(int i = 0; i < seq.size; i++) {
-        cout << *(seq.contents)[i] << " ";
+        cout << seq.contents[i] << " ";
     }
     cout << endl;
 }
